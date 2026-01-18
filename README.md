@@ -1,91 +1,156 @@
-# Chocolate-Sales-Analysis
-Aim to analyse data and retrieve information in the form of business insights as well as create easy to understand dashboards.
+# Chocolate Sales Analysis Dashboard (Excel)
 
-## Overview
-This project analyzes international chocolate sales transaction data using Microsoft Excel to identify revenue patterns and compare market performance across countries. The focus of the analysis is on data validation, aggregation and deriving meaningful business insights from raw sales data.
+## Project Overview
+This project involves analyzing chocolate sales data using Microsoft Excel to understand performance patterns across products, countries, sales personnel and time. The focus of this work was not only on visualization but on building **robust analytical logic**, handling **real-world data challenges** and designing **dynamic KPIs** that respond accurately to user selections.
 
----
-
-## Dataset
-The dataset consists of transactional sales records containing:
-
-- Sales person
-- Country
-- Product
-- Date
-- Revenue amount
-- Boxes shipped
-
-The data represents chocolate sales across multiple countries and customer segments.
+The final outcome is an interactive Excel dashboard that enables performance exploration by **product and country**, while highlighting top contributors and time-based trends.
 
 ---
 
-## Tools Used
+## Dataset Overview
+The dataset contains transactional chocolate sales data with the following fields:
+- Sales Person  
+- Country  
+- Product  
+- Transaction Date  
+- Amount (currency formatted)  
+- Boxes Shipped  
+
+To support numerical analysis, additional calculated columns were created from the raw data.
+
+---
+
+## Data Cleaning & Preparation
+
+### Revenue Normalization
+The `Amount` column was stored as text due to currency symbols and commas. To enable aggregation and calculations, a numeric revenue column (`AmountN`) was created.
+
+**Logic Applied**
+- Remove the currency symbol  
+- Remove thousand separators  
+- Convert the value to a numeric format  
+
+**Formula Used**
+=SUBSTITUTE(SUBSTITUTE([@Amount],"$",""),",","")
+
+---
+
+## Time Intelligence: Month to Quarter Conversion
+The raw dataset did not include a quarter field. Quarters were derived directly from the transaction date to enable quarterly analysis.
+
+**Conversion Logic**
+- Extract the month from the date
+- Divide the month number by 3
+- Round up to determine the quarter
+- Prefix the result with “Q”
+
+**Formula Used**
+="Q"&ROUNDUP(MONTH(A3)/3,0)
+
+This enabled:
+- Quarterly revenue aggregation
+- Identification of the highest-performing sales quarter
+- Time-based KPI creation without altering the raw dataset
+
+---
+
+## KPI Design
+
+### KPI 1: Top Sales Person (Tie-Aware Logic)
+This KPI identifies the top-performing sales person based on the **selected country and product**.
+
+Instead of assuming a single top performer, the logic explicitly accounts for scenarios where **multiple sales persons share the highest performance**.
+
+**Logic Applied**
+- Identify the maximum transaction count
+- Filter all sales persons matching that maximum value
+- Concatenate names into a single readable output
+
+**Formula Used**
+=TEXTJOIN(", ", TRUE, FILTER(F3:F27, G3:G27 = MAX(G3:G27)))
+
+This approach ensures analytical accuracy and avoids misleading results when ties occur.
+
+---
+
+### KPI 2: Maximum Revenue Quarter
+This KPI identifies the quarter with the highest total revenue.
+
+**Approach**
+- Aggregate revenue at the quarter level
+- Sort quarters by total revenue
+- Select the highest-performing quarter dynamically
+
+This provides a time-based performance perspective alongside individual and regional metrics.
+
+---
+
+## Country-Level Analysis
+Country-wise analysis was performed to compare:
+- Transaction volume
+- Revenue contribution
+
+This revealed that higher transaction volume does not always translate to higher revenue, highlighting the importance of **value-based analysis over volume-only metrics**.
+
+---
+
+## Product Performance Analysis
+Product-level analysis included:
+- Counting transactions per product
+- Sorting products by performance
+- Displaying top-performing products dynamically
+
+Dynamic array functions were used to keep rankings responsive and reduce manual intervention.
+
+---
+
+## Dashboard Design
+The Excel dashboard includes:
+- Product performance bar charts
+- Country-wise geographic revenue visualization
+- KPI cards for:
+  - Top Sales Person (tie-aware)
+  - Top Revenue Quarter
+- Interactive selectors for Product and Country
+
+Charts were configured to remain fixed in position and unaffected by cell resizing to preserve layout consistency.
+
+---
+
+## Key Learning Outcomes
+- Built tie-aware ranking logic instead of assuming single winners
+- Designed KPIs that adapt dynamically to user selections
+- Applied time intelligence without relying on pre-existing quarter data
+- Transformed real-world formatted data into analysis-ready structures
+- Strengthened analytical thinking around edge cases and fair comparisons
+- Used Excel as a logic-building and decision-support tool, not just for reporting
+
+---
+
+## Screenshots
+
+### Raw Data
+![Raw Data](RawData.png)
+
+### Country-Level Analysis
+![Country Analysis](Country.png)
+
+### Top Sales Person Logic
+![Top Performer](TopPerformer.png)
+
+### Date to Quarter Conversion
+![Date Manipulation](DateManipulation.png)
+
+---
+
+## Tools & Techniques Used
 - Microsoft Excel
-- Excel Tables and structured references
-- Formulas and functions:
-  - `COUNTIF`, `COUNTA`, `SUMIF`
-  - `UNIQUE`
-  - `SUBSTITUTE`
-- Sorting and basic tabular analysis
+- Dynamic Array Functions
+- Logical & Conditional Functions
+- Time-Based Analysis
+- Dashboard Design & Visualization
 
 ---
 
-## Data Preparation
-The dataset was reviewed and prepared prior to analysis:
-
-- Verified that no null or blank values were present
-- Ensured country values were consistent using dynamic arrays
-- Revenue values were converted from text to numeric format due to embedded currency symbols and delimiters
-- Transaction counts and revenue totals were cross-validated to confirm accuracy
-
----
-
-## Analysis Summary
-
-### Country-Level Transactions and Revenue
-Sales transactions and total revenue were aggregated at the country level to compare market activity and value contribution.
-
-| Country        | Transactions | Revenue |
-|----------------|--------------|---------|
-| Australia      | 205          | 1,137,367 |
-| UK             | 178          | 1,051,792 |
-| India          | 184          | 1,045,800 |
-| USA            | 179          | 1,035,349 |
-| Canada         | 175          |   962,899 |
-| New Zealand    | 173          |   950,418 |
-
----
-
-### Revenue Efficiency Comparison
-A comparison of revenue generated per transaction highlights differences in market behavior across countries.
-
-| Country     | Revenue per Transaction |
-|-------------|------------------------|
-| UK          | 5,908.94 |
-| USA         | 5,784.07 |
-| India       | 5,683.70 |
-| Australia   | 5,548.13 |
-| Canada      | 5,502.28 |
-| New Zealand | 5,493.75 |
-
----
-
-## Observations
-- Countries contribute differently to overall business value despite similar transaction volumes.
-- Australia generates the highest total revenue, driven by higher transaction frequency.
-- The UK leads in revenue per transaction, indicating stronger value generation per sale.
-- India shows high transaction activity with comparatively moderate revenue per transaction.
-- Market performance varies between volume-driven and value-driven contributions.
-
----
-
-## Repository Structure
-- Excel workbook containing cleaned data and analysis
-- README documentation
-
----
-
-## Author
-**Prep Ankur**  
-Aspiring Data Analyst | Excel | Data Analysis | Business Insights
+## Closing Note
+This project demonstrates a structured and analytical approach to problem-solving in Excel, with emphasis on correct logic, adaptability and real-world data considerations. The focus throughout was on building solutions that remain accurate under changing conditions and edge cases, reflecting a strong analytical mindset.
