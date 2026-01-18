@@ -130,7 +130,7 @@ Charts were configured to remain fixed in position and unaffected by cell resizi
 ## Screenshots
 
 ### Dashboard
-![Raw Data](Dashboard.png)
+![Dashboard](Dashboard.png)
 
 ### Raw Data
 ![Raw Data](RawData.png)
