@@ -130,19 +130,19 @@ Charts were configured to remain fixed in position and unaffected by cell resizi
 ## Screenshots
 
 ### Dashboard
-![Dashboard](Dashboard.png)
+![Dashboard](images/Dashboard.png)
 
 ### Raw Data
-![Raw Data](RawData.png)
+![Raw Data](images/RawData.png)
 
 ### Country-Level Analysis
-![Country Analysis](Country.png)
+![Country Analysis](images/Country.png)
 
 ### Top Sales Person Logic
-![Top Performer](TopPerformer.png)
+![Top Performer](images/TopPerformer.png)
 
 ### Date to Quarter Conversion
-![Date Manipulation](DateManipulation.png)
+![Date Manipulation](images/DateManipulation.png)
 
 ---
 
